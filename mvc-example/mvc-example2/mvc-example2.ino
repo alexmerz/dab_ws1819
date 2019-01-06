@@ -1,5 +1,5 @@
 /**
- * Beispiel mit 1 Zustands-Variablen
+ * Beispiel mit Struct
  */
 
 const int RED = 11;
@@ -11,7 +11,8 @@ const long PERIOD = 100000;
 struct Leds {
   int red;
   int blue;
-};  
+};
+
 struct Leds leds = {LOW, LOW};
   
 long timestamp = 0;
@@ -30,7 +31,7 @@ void loop()
     if(digitalRead(TASTER) == HIGH) {
       if(digitalRead(RED) == LOW && digitalRead(BLUE) == LOW) {
         leds.red = HIGH;
-        leds.blue = LOW;
+        leds.blue = LOW; 
       } else if(digitalRead(RED) == HIGH && digitalRead(BLUE) == LOW) {
         leds.red = LOW;
         leds.blue = HIGH;

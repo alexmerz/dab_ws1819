@@ -1,0 +1,11 @@
+{
+  "name": "blclient",
+  "description" : "Bluetooth test central",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "noble": "^1.9.1"
+  }
+}
