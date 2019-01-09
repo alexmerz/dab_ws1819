@@ -1,44 +1,9 @@
-
 const noble = require('noble-mac');
-const readline = require('readline');
-
 var writeChar = null;
 var readChar = null;
 
 var cmdbuffer = [];
-var ts = 0;
 var reply = true;
-
-readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
-
-process.stdin.on('keypress', (str, key) => {
-    var cts = Date.now();
-    if (key.ctrl && key.name === 'c') {
-        process.exit();
-    }
-    if(cts > ts) {
-        switch (key.name) {
-            case 'up':
-                cmdbuffer.push("FORWARD 720 200");
-                break;
-            case 'b':
-                cmdbuffer.push("RGB 100 100 100");
-                cmdbuffer.push("RGB 100 100 100");
-                cmdbuffer.push("RGB");
-                break;
-            case 'd':
-                cmdbuffer.push("DIST");
-                break;
-            case 'c':
-                cmdbuffer.push("CLEAR");
-                break;
-
-        }
-
-        ts = cts + 700;
-    }
-});
 
 function executeCommand() {
     var command = cmdbuffer.shift();
@@ -47,12 +12,6 @@ function executeCommand() {
         console.log(command);
         writeChar.write(buffer);
         reply = false;
-    }
-}
-
-function checkCmdbuffer() {
-    if(cmdbuffer.length == 0) {
-        cmdbuffer.push("CLEAR");
     }
 }
 
@@ -68,10 +27,7 @@ function init() {
         }
     });
     cmdbuffer.push("RGB 100 100 100");
-    cmdbuffer.push("RGB 100 100 100");
-    cmdbuffer.push("RGB");
 
-    setInterval(checkCmdbuffer, 4000);
     setInterval(executeCommand, 700);
 }
 

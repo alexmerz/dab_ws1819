@@ -6,6 +6,6 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "noble": "^1.9.1"
+    "noble-mac": "github:Timeular/noble-mac"
   }
 }
