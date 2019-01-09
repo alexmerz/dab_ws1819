@@ -10,7 +10,7 @@ function executeCommand() {
     if(command && reply == true) {
         var buffer = new Buffer(command + "\n");
         console.log(command);
-        writeChar.write(buffer);
+        writeChar.write(buffer, true);
         reply = false;
     }
 }
@@ -34,6 +34,7 @@ function init() {
 function handleService(service) {
     service.discoverCharacteristics([], function(error, characteristics) {
         for(var i = 0, l = characteristics.length; i < l; i++) {
+            console.log(characteristics[i].uuid);
             switch(characteristics[i].uuid) {
                 case 'ffe3':
                     writeChar = characteristics[i];

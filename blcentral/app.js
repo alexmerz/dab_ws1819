@@ -45,7 +45,7 @@ function executeCommand() {
     if(command && reply == true) {
         var buffer = new Buffer(command + "\n");
         console.log(command);
-        writeChar.write(buffer);
+        writeChar.write(buffer, true);
         reply = false;
     }
 }
