@@ -42,7 +42,7 @@ process.stdin.on('keypress', (str, key) => {
 
 function executeCommand() {
     var command = cmdbuffer.shift();
-    if(command && reply == true) {
+    if(command /* && reply == true */) {
         var buffer = new Buffer(command + "\n");
         console.log(command);
         writeChar.write(buffer, true);
@@ -67,10 +67,12 @@ function init() {
             reply = true;
         }
     });
+    /*
     cmdbuffer.push("RGB 100 100 100");
     cmdbuffer.push("RGB 100 100 100");
     cmdbuffer.push("RGB");
-
+*/
+    cmdbuffer.push("FORWARD 1000 100");
     setInterval(checkCmdbuffer, 4000);
     setInterval(executeCommand, 700);
 }
@@ -78,6 +80,7 @@ function init() {
 function handleService(service) {
     service.discoverCharacteristics([], function(error, characteristics) {
         for(var i = 0, l = characteristics.length; i < l; i++) {
+            console.log(characteristics[i].uuid);
             switch(characteristics[i].uuid) {
                 case 'ffe3':
                     writeChar = characteristics[i];
@@ -95,7 +98,12 @@ function handleService(service) {
 function discover(peripherial) {
 
     console.log("Peri: " + peripherial.address);
+    /*
     if('00:1b:10:0e:0c:9a' !== peripherial.address && '00-1b-10-0e-0c-9a' !== peripherial.address) {
+        return;
+    }
+    */
+    if('00:1b:10:fa:c3:a2' !== peripherial.address && '00-1b-10-fa-c3-a2' !== peripherial.address) {
         return;
     }
     peripherial.connect(function(error) {

@@ -10,7 +10,6 @@ const int COMMANDS = 5;
 const char *Commands[COMMANDS] = {"ID", "FORWARD", "CLEAR", "RGB", "DIST"};
 const int MAXCOMMANDLENGTH = 128;
 const int MAXELEMLENGTH = 32;
-
 typedef struct {
   double ultrasonic;
 } Sensor;
