@@ -38,14 +38,16 @@ char readbuffer3[128];
 int bindex3 = 0;
 
 MeEncoderNew motorFRONT_LEFT(FRONT, LEFT);
-/*
 MeEncoderNew motorBACK_LEFT(BACK, LEFT);
 MeEncoderNew motorFRONT_RIGHT(FRONT, RIGHT);
 MeEncoderNew motorBACK_RIGHT(BACK, RIGHT);
-*/
 
 void setup() {
-  Wire.begin();
+  motorFRONT_LEFT.begin();
+  motorFRONT_RIGHT.begin();
+  motorBACK_LEFT.begin();
+  motorBACK_RIGHT.begin();
+  
   setupActor();  
   
   Serial.begin(115200);
