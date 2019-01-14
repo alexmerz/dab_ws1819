@@ -45,12 +45,12 @@ MeEncoderNew motorBACK_RIGHT(BACK, RIGHT);
 */
 
 void setup() {
-
+  Wire.begin();
   setupActor();  
   
   Serial.begin(115200);
-  Serial3.begin(115200);
   Serial.println("READY");
+  Serial3.begin(115200);  
   Serial3.println("READY");
 }
 
@@ -63,9 +63,8 @@ void setupActor() {
 
 void loop() { 
   //isConnectAlive();
-
-  checkForBTCommand();
   checkForSerialCommand();
+  checkForBTCommand();
   
   processCommand();
   processTimer();
@@ -96,7 +95,7 @@ void checkForBTCommand() {
 }
 
 void checkForSerialCommand() {
-  if(Serial.available()) {
+  if(Serial.available()) {    
     int s = Serial.read();    
     while(-1 != s) {
       if(10 == s) {
@@ -135,7 +134,7 @@ void clearCommand() {
   memset(activeCommand[3], 0, sizeof(activeCommand[3]));
 }
 
-void splitBuffer(char *readbuffer) {
+void splitBuffer(char *readbuffer) {  
   int i = 0;
   int j = 0;
   int k = 0;
