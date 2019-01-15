@@ -20,15 +20,22 @@ process.stdin.on('keypress', (str, key) => {
     if(cts > ts) {
         switch (key.name) {
             case 'up':
-                cmdbuffer.push("FORWARD 720 200");
+                cmdbuffer.push("FORWARD 720 100");
                 break;
-            case 'b':
-                cmdbuffer.push("RGB 100 100 100");
-                cmdbuffer.push("RGB 100 100 100");
-                cmdbuffer.push("RGB");
+            case 'down':
+                cmdbuffer.push("BACK 720 100");
+                break;
+            case 'left':
+                cmdbuffer.push("LCIRCLE 720 100");
+                break;
+            case 'right':
+                cmdbuffer.push("RCIRCLE 720 100");
+                break;
+            case 'a':
+                cmdbuffer.push("LEFT 720 100");
                 break;
             case 'd':
-                cmdbuffer.push("DIST");
+                cmdbuffer.push("RIGHT 720 100");
                 break;
             case 'c':
                 cmdbuffer.push("CLEAR");
@@ -67,12 +74,6 @@ function init() {
             reply = true;
         }
     });
-    /*
-    cmdbuffer.push("RGB 100 100 100");
-    cmdbuffer.push("RGB 100 100 100");
-    cmdbuffer.push("RGB");
-*/
-    cmdbuffer.push("FORWARD 1000 100");
     setInterval(checkCmdbuffer, 4000);
     setInterval(executeCommand, 700);
 }

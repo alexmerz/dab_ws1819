@@ -8,8 +8,8 @@ const int LEFT = SLOT1;
 
 const unsigned long CONNECTALIVE = 5000;
 
-const int COMMANDS = 3;
-const char *Commands[COMMANDS] = {"ID", "FORWARD", "CLEAR"};
+const int COMMANDS = 8;
+const char *Commands[COMMANDS] = {"ID", "FORWARD", "BACK", "RCIRCLE", "LCIRCLE", "LEFT", "RIGHT", "CLEAR"};
 const int MAXCOMMANDLENGTH = 128;
 const int MAXELEMLENGTH = 32;
 
@@ -44,9 +44,13 @@ MeEncoderNew motorBACK_RIGHT(BACK, RIGHT);
 
 void setup() {
   motorFRONT_LEFT.begin();
+  motorFRONT_LEFT.reset();
   motorFRONT_RIGHT.begin();
+  motorFRONT_RIGHT.reset();
   motorBACK_LEFT.begin();
+  motorBACK_LEFT.reset();
   motorBACK_RIGHT.begin();
+  motorBACK_RIGHT.reset();
   
   setupActor();  
   
@@ -226,6 +230,21 @@ void processCommand() {
   } else if(command.equals("FORWARD")) {
     forwardCommand();
     return;
+  } else if(command.equals("RCIRCLE")) {
+    rcircleCommand();
+    return;
+  } else if(command.equals("LCIRCLE")) {
+    lcircleCommand();
+    return;
+  } else if(command.equals("LEFT")) {
+    leftCommand();
+    return;
+  } else if(command.equals("RIGHT")) {
+    rightCommand();
+    return;
+  } else if(command.equals("BACK")) {
+    backCommand();
+    return;
   } 
   clearCommand();    
 }
@@ -255,11 +274,9 @@ void connectAlive() {
 
 void processActor() {
   motorFRONT_LEFT.runSpeed(actor.motorF_L);
-  /*
   motorBACK_LEFT.runSpeed(actor.motorB_L);
   motorFRONT_RIGHT.runSpeed(actor.motorF_R);
   motorBACK_RIGHT.runSpeed(actor.motorB_R);
-*/  
 }
 
 void forwardCommand() {
@@ -275,10 +292,93 @@ void forwardCommand() {
   actor.motorB_L = -speed;
   actor.motorF_R = speed;
   actor.motorB_R = speed;
-  setMotorTimer(timer);
-  Serial.println(speed);
-  Serial.println(timer);
+  setMotorTimer(timer + millis());
   commandOk();
+}
+
+void rcircleCommand() {
+  int speed = 100;
+  unsigned long timer = 1000;
+  if(0 != activeCommand[1]) {
+    timer = atoi(activeCommand[1]);
+  } 
+  if(0 != activeCommand[2]) {
+    speed = (unsigned long)atoi(activeCommand[2]);
+  }
+  actor.motorF_L = -speed;
+  actor.motorB_L = -speed;
+  actor.motorF_R = -speed;
+  actor.motorB_R = -speed;
+  setMotorTimer(timer + millis());
+  commandOk();  
+}
+
+void lcircleCommand() {
+  int speed = 100;
+  unsigned long timer = 1000;
+  if(0 != activeCommand[1]) {
+    timer = atoi(activeCommand[1]);
+  } 
+  if(0 != activeCommand[2]) {
+    speed = (unsigned long)atoi(activeCommand[2]);
+  }
+  actor.motorF_L = speed;
+  actor.motorB_L = speed;
+  actor.motorF_R = speed;
+  actor.motorB_R = speed;
+  setMotorTimer(timer + millis());
+  commandOk();  
+}
+
+void leftCommand() {
+  int speed = 100;
+  unsigned long timer = 1000;
+  if(0 != activeCommand[1]) {
+    timer = atoi(activeCommand[1]);
+  } 
+  if(0 != activeCommand[2]) {
+    speed = (unsigned long)atoi(activeCommand[2]);
+  }
+  actor.motorF_L = speed;
+  actor.motorB_L = -speed;
+  actor.motorF_R = speed;
+  actor.motorB_R = -speed;
+  setMotorTimer(timer + millis());
+  commandOk();  
+}
+
+void rightCommand() {
+  int speed = 100;
+  unsigned long timer = 1000;
+  if(0 != activeCommand[1]) {
+    timer = atoi(activeCommand[1]);
+  } 
+  if(0 != activeCommand[2]) {
+    speed = (unsigned long)atoi(activeCommand[2]);
+  }
+  actor.motorF_L = -speed;
+  actor.motorB_L = speed;
+  actor.motorF_R = -speed;
+  actor.motorB_R = speed;
+  setMotorTimer(timer + millis());
+  commandOk();  
+}
+
+void backCommand() {
+  int speed = 100;
+  unsigned long timer = 1000;
+  if(0 != activeCommand[1]) {
+    timer = atoi(activeCommand[1]);
+  } 
+  if(0 != activeCommand[2]) {
+    speed = (unsigned long)atoi(activeCommand[2]);
+  }
+  actor.motorF_L = speed;
+  actor.motorB_L = speed;
+  actor.motorF_R = -speed;
+  actor.motorB_R = -speed;
+  setMotorTimer(timer + millis());
+  commandOk();  
 }
 
 void setMotorTimer(unsigned long mtime) {
