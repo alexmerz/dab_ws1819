@@ -1,4 +1,4 @@
-#Dokumentation Firmware
+# Dokumentation Firmware
 
 Die Roboter akzeptieren über die serielle Schnittstelle/Bluetooth eine Reihe von Textkommandos bestehend aus einem Kommandowort und bis zu drei Parametern. Das Kommandowort wird immer groß geschrieben, die einzelnen Elemente werden mit einem einzelnen Leerzeichen voneinander getrennt. Ein Kommando muss immer mit einem Zeilenumbruch "\n" abgeschlossen werden. Zum Beispiel:
 "FORWARD 2000 100\n"
@@ -9,7 +9,7 @@ Die Geschwindigkeit der seriellen Schnittstelle (nicht Bluetooth!) beträgt 9600
 
 Zeitangaben müssen in Millisekunden erfolgen (1s = 1000ms). Die Speed-Angabe hat einen zulässigen Wertebereich von 0 - 255, Werte ca. unter 50 dürften keine sinnvolle physische Aktion zur Ursache haben.
 
-##Kommandos
+## Kommandos
 
 **FORWARD \<Zeit\> \<Speed\>**
 
