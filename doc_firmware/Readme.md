@@ -3,6 +3,8 @@
 Die Roboter akzeptieren über die serielle Schnittstelle/Bluetooth eine Reihe von Textkommandos bestehend aus einem Kommandowort und bis zu drei Parametern. Das Kommandowort wird immer groß geschrieben, die einzelnen Elemente werden mit einem einzelnen Leerzeichen voneinander getrennt. Ein Kommando muss immer mit einem Zeilenumbruch "\n" abgeschlossen werden. Zum Beispiel:
 "FORWARD 2000 100\n"
 
+Das Format muss strikt eingehalten werden, der Kommandointerpreter ist nicht fehlertolerant, insbesondere sollte wirklich jeweils nur ein Leerzeichen zur Trennung genutzt werden und nicht Ausversehen zum Beispiel zwei.
+
 Wurde der Befehl korrekt erkannt, liefert die Schnittstelle ein OK + Zeilenumbruch zurück. Konnte der Befehl nicht erkannt werden, liefert die Schnittstelle ein NOK + Zeilenumbruch zurück.
 
 Die Geschwindigkeit der seriellen Schnittstelle (nicht Bluetooth!) beträgt 9600 Baud.
@@ -37,8 +39,7 @@ Nach rechts schieben
 
 **ID**
 
-Liefert den Namen des Roboters
-Derzeit auf *Hallo* hardcodiert
+Liefert den Namen des Roboters. Derzeit auf *Hallo* hardcodiert
 
 **CLEAR**
 
