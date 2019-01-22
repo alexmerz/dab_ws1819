@@ -54,7 +54,7 @@ void setup() {
   
   setupActor();  
   
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("READY");
   Serial3.begin(115200);  
   Serial3.println("READY");
