@@ -43,6 +43,9 @@ MeEncoderNew motorFRONT_RIGHT(FRONT, RIGHT);
 MeEncoderNew motorBACK_RIGHT(BACK, RIGHT);
 
 void setup() {
+  Serial.begin(9600);  
+  Wire.begin();
+  scanI2C();
   motorFRONT_LEFT.begin();
   motorFRONT_LEFT.reset();
   motorFRONT_RIGHT.begin();
@@ -54,7 +57,6 @@ void setup() {
   
   setupActor();  
   
-  Serial.begin(9600);
   Serial.println("READY");
   Serial3.begin(115200);  
   Serial3.println("READY");
@@ -386,4 +388,48 @@ void setMotorTimer(unsigned long mtime) {
   timer.motorB_L = mtime;
   timer.motorF_R = mtime;
   timer.motorB_R = mtime;
+}
+
+void scanI2C() {
+    byte error, address;
+  int nDevices;
+
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 127; address++ ) 
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4) 
+    {
+      Serial.print("Unknow error at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+  {
+    Serial.println("No I2C devices foundn");
+  }
+  else
+  {
+    Serial.println("donen");
+  }
+
 }
