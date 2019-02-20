@@ -1,8 +1,8 @@
 #include <MeMegaPi.h>
 #include <Wire.h>
 
-const int FRONT = 0x01;
-const int BACK = 0x02;
+const int FRONT = 0x09;
+const int BACK = 0x0a;
 const int RIGHT = SLOT2;
 const int LEFT = SLOT1;
 
